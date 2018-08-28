@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    html,body {
+        height:100%;
+    }
+    body {
+        margin:0;
+        width:100%;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        color:#fff;
+    }
+    button {
+        width:200px;
+        height:50px;
+        border:none;
+        font-size:1rem;
+        color:#fff;
+    }
+    button {
+        background-color:#7FCFF7;
+    }
+    input {
+        background-color:#FF9933;
+        border:none;
+        height:30px;
+        width:50px;
+        position:absolute;
+        bottom:5px;
+        right:5px;
+        color:#fff;
+    }
+    div {
+        display:none;
+        width:400px;
+        height:200px;
+        background-color:lightpink;
+        position:absolute;
+        top:0px;
+        left:calc(50% - 200px);
+        text-align:center;
+        /*line-height:200px;
+        */
+        font-family:"微软雅黑";
+        font-size:1.2rem;
+    }
+    span {
+        position:absolute;
+        top:5px;
+        right:10px;
+        cursor:pointer;
+    }
+    p {
+        margin-top:70px;
+    }
+
+</style>
+<body>
+<button type="button">点我有你想要的</button>
+<div>
+    <p>大河向东流</p>
+    <span>×</span>
+    <input type="button" name="" id="" value="关闭">
+</div>
+</body>
+<script>
+    // 通过queryselector获取可点击的元素
+    var btn = document.querySelector('button');
+    var input = document.querySelector('input');
+    var div = document.querySelector('div');
+    var span = document.getElementsByTagName('span')[0];
+
+
+    // 获取所有的样式表
+    var styleSheets = document.styleSheets;
+    // console.dir(styleSheets);
+    // 获取div的样式集合
+    var divRules = document.styleSheets[0].cssRules[5];
+
+    btn.addEventListener('click', function() {
+        divRules.style.display = 'block';
+    });
+    input.addEventListener('click', function() {
+        divRules.style.display = 'none';
+    });
+    span.onclick = function() {
+        divRules.style.display = 'none';
+    }
+</script>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="root">
+
+</div>
+</body>
+<script>
+    /**
+     * 轮播插件雏形
+     * @param auto 是否为自动播放 Boolean
+     * @param autoTime 自动播放时间   Number
+     * @param transitionTime 轮播滑动时间 Number
+     * @param imgSrc 图片地址 Array
+     * @param imgCount 图片数量  等同于数组长度 Number
+     */
+    let lunbo = (auto, autoTime, transitionTime, imgSrc, imgCount,) => {
+        let root = document.getElementById('root');
+
+        let boxDiv = document.createElement('div');
+        boxDiv.className = 'box';
+
+        imgSrc.map(e => {
+            let Img = document.createElement('img');
+            Img.style.width = 300 + 'px';
+            Img.style.height = 200 + 'px';
+            Img.src = e;
+            boxDiv.appendChild(Img);
+            return boxDiv
+        });
+        let boxBtn = document.createElement('div');
+        boxBtn.className = 'empty';
+
+        for (let i = 0; i < imgCount; i++) {
+            let Span = document.createElement('span');
+            Span.style.display = 'inline-block';
+            Span.style.position = 'relative';
+            Span.style.zIndex = '10';
+            Span.style.width = '10px';
+            Span.style.height = '10px';
+            Span.style.margin = '0 5px';
+            Span.style.borderRadius = '100%';
+            Span.style.backgroundColor = 'blue';
+
+            Span.setAttribute('data-index', i + '');
+            boxBtn.appendChild(Span)
+        }
+        root.style.width = 300 + 'px';
+        root.style.height = 200 + 'px';
+        root.style.margin = '100px auto';
+        root.style.overflow = 'hidden';
+        root.style.fontSize = '0';
+
+
+        boxDiv.style.width = 1800 + 'px';
+        boxDiv.style.height = 200 + 'px';
+        boxDiv.style.position = 'relative';
+
+        boxBtn.style.textAlign = 'center';
+        boxBtn.style.position = 'relative';
+        boxBtn.style.top = -20 + 'px';
+
+
+        let btn = boxBtn.children;
+        let move = () => {
+            if (parseInt(boxDiv.style.left) > -1200) {
+                boxDiv.style.left = parseInt(boxDiv.style.left) - 300 + 'px';
+                console.log(boxDiv.style.left);
+                boxDiv.style.transition = 'left 1s';
+                if (parseInt(boxDiv.style.left) <= -1200) {
+                    console.log('t');
+                    setTimeout(() => {
+                        boxDiv.style.left = 0 + 'px';
+                        boxDiv.style.transition = 'left 0s';
+                        return boxDiv.style
+                    }, 1000)
+                }
+            } else {
+                boxDiv.style.left = 0 + 'px';
+                boxDiv.style.transition = 'left 0s'
+            }
+        };
+        if (auto) {
+            setInterval(move, autoTime);
+        }
+        let tog = (index) => {
+            if (index > 3) {
+                tog(0);
+                return
+            }
+            for (let i = 0; i < btn.length; i++) {
+                btn[i].style.backgroundColor = '#eee'
+            }
+            btn[index].style.backgroundColor = 'rgb(215, 81, 15)'
+        };
+        for (let i = 0; i < btn.length; i++) {
+            btn[i].onclick = () => {
+                boxDiv.style.left = -300 * btn[i].getAttribute('data-index') + 'px';
+                boxDiv.style.transition = 'left 1s';
+                tog(btn[i].getAttribute('data-index'))
+            }
+        }
+        root.appendChild(boxDiv);
+        root.appendChild(boxBtn);
+    };
+    lunbo(false, 2000, 1000, ['./img/1.jpg', './img/2.jpg', './img/3.jpg', './img/4.jpg', './img/1.jpg'], 5)
+</script>
+</html>

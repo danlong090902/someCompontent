@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>轮播</title>
+</head>
+<style>
+    .box {
+        width: 300px;
+        height: 200px;
+        margin: 100px auto;
+        overflow: hidden;
+        font-size: 0;
+    }
+    .parent{
+        width: 1800px;
+        height: 200px;
+        position: relative;
+    }
+    .parent img {
+        width: 300px;
+        height: 200px;
+    }
+    .empty {
+        position:relative;
+        top:-20px;
+        text-align:center;
+    }
+    .empty span {
+        display:inline-block;
+        position:relative;
+        z-index:10;
+        width:10px;
+        height:10px;
+        margin:0 5px;
+        border-radius:100%;
+        background-color: blue;
+    }
+</style>
+<body>
+    <div class="box">
+        <div class="parent" style="left: 0">
+            <img src="./img/1.jpg" alt="">
+            <img src="./img/2.jpg" alt="">
+            <img src="./img/3.jpg" alt="">
+            <img src="./img/4.jpg" alt="">
+            <img src="./img/1.jpg" alt="">
+        </div>
+        <div class="empty">
+            <span data-index="0"></span>
+            <span data-index="1"></span>
+            <span data-index="2"></span>
+            <span data-index="3"></span>
+        </div>
+    </div>
+</body>
+<script>
+    let parent = document.getElementsByClassName('parent')[0];
+    let btnBox = document.getElementsByClassName('empty')[0];
+    let btn = btnBox.children;
+    console.log(btn);
+    let move =() => {
+        if (parseInt(parent.style.left) > -1200){
+            parent.style.left = parseInt(parent.style.left) - 300 +'px';
+            console.log(parent.style.left);
+            parent.style.transition = 'left 1s';
+            if (parseInt(parent.style.left) <= -1200) {
+                console.log( 't');
+                setTimeout(() => {
+                    parent.style.left = 0 + 'px';
+                    parent.style.transition = 'left 0s';
+                    return parent.style
+                },1000)
+            }
+        }else {
+            parent.style.left = 0 + 'px';
+            parent.style.transition = 'left 0s'
+        }
+    };
+     setInterval(move,2000);
+    let tog = (index) => {
+        if (index > 3) {
+            tog(0);
+            return
+        }
+        for (let i = 0 ; i < btn.length ; i++){
+            btn[i].style.backgroundColor = '#eee'
+        }
+        btn[index].style.backgroundColor = 'rgb(215, 81, 15)'
+    };
+    for (let i = 0 ; i < btn.length ; i++) {
+        btn[i].onclick = () => {
+            parent.style.left = -300 * btn[i].getAttribute('data-index')+'px';
+            parent.style.transition = 'left 1s';
+            tog(btn[i].getAttribute('data-index'))
+        }
+    }
+</script>
+</html>
