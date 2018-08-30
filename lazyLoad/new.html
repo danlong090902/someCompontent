@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body{
+            margin: 0;
+        }
+        img{
+            display: block;
+            max-height: 300px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>懒加载页面</h1>
+    <img src="./img/111.jpg" data-src='./img/1.jpg' alt="">
+    <img src="./img/111.jpg" data-src='./img/2.jpg' alt="">
+    <img src="./img/111.jpg" data-src='./img/3.jpg' alt="">
+    <img src="./img/111.jpg" data-src='./img/4.jpg' alt="">
+    <img src="./img/111.jpg" data-src='./img/5.jpg' alt="">
+    <img src="./img/111.jpg" data-src='./img/6.jpg' alt="">
+    <img src="./img/111.jpg" data-src='./img/7.jpg' alt="">
+    <img src="./img/111.jpg" data-src='./img/8.jpg' alt="">
+    <img src="./img/111.jpg" data-src='./img/9.jpg' alt="">
+    <img src="./img/111.jpg" data-src='./img/10.jpg' alt="">
+    <img src="./img/111.jpg" data-src='./img/11.jpg' alt="">
+    <img src="./img/111.jpg" data-src='./img/12.jpg' alt="">
+    <img src="./img/111.jpg" data-src='./img/13.jpg' alt="">
+</div>
+</body>
+<script>
+    window.onload = () => {
+        //  获取节点距窗口顶部高度;  innerHeight是窗口显示高度
+        let scrollTop = window.screenY;
+        // 获取所有图片标签
+        let imgs = Array.from(document.getElementsByTagName('img'));
+        let canRun = true;
+        // 懒加载函数
+        // let lazyLoad = () => {
+        //     imgs.map((item,index) => {
+        //         // 获取对象相对于由offsetParent属性指定的父坐标(css定位的元素或body元素)距离顶端的高度。
+        //         if (item.offsetTop < window.innerHeight + scrollTop) {
+        //             console.log(item.offsetTop);
+        //             item.setAttribute('src',item.dataset.src)
+        //         }
+        //     })
+        // };
+
+
+        // 定义懒加载，从上到下懒加载，从下到上也是懒加载
+        let lazyLoad = () => {
+            imgs.map((item) => {
+                if (scrollTop ===0 && item.dataset.src !== '' && item.offsetTop < window.innerHeight + scrollTop) {
+                    alert();
+                    item.setAttribute('src',item.dataset.src);
+                    item.setAttribute('data-src','')
+                }else if (item.dataset.src !== ''&& item.offsetTop < window.innerHeight +scrollTop && item.offsetTop > scrollTop) {
+                    item.setAttribute('src',item.dataset.src);
+                    item.setAttribute('data-src','')
+                }
+            })
+        };
+        // 定义节流函数
+        let throttle = (fun,delay) => {
+            return () => {
+                if (!canRun) {
+                    return
+                }
+                console.log('!!!');
+                canRun = false;
+                setTimeout(()=> {
+                    scrollTop = window.scrollY;
+                    fun(imgs);
+                    canRun = true
+                },delay)
+            }
+        };
+        lazyLoad();
+        window.addEventListener('scroll',throttle(lazyLoad,500))
+        // window.onscroll = () => {
+        //     if (!canRun) {
+        //         return
+        //     }
+        //     canRun = false;
+        //     setTimeout(() => {
+        //         scrollTop = window.scrollY;
+        //         lazyLoad()
+        //         canRun = true
+        //     },1000)
+        // }
+    }
+</script>
+</html>

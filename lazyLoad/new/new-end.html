@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        img {
+            display: block;
+            max-height: 300px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>懒加载页面</h1>
+    <img src="../img/111.jpg" data-src='../img/1.jpg' alt="">
+    <img src="../img/111.jpg" data-src='../img/2.jpg' alt="">
+    <img src="../img/111.jpg" data-src='../img/3.jpg' alt="">
+    <img src="../img/111.jpg" data-src='../img/4.jpg' alt="">
+    <img src="../img/111.jpg" data-src='../img/5.jpg' alt="">
+    <img src="../img/111.jpg" data-src='../img/6.jpg' alt="">
+    <img src="../img/111.jpg" data-src='../img/7.jpg' alt="">
+    <img src="../img/111.jpg" data-src='../img/8.jpg' alt="">
+    <img src="../img/111.jpg" data-src='../img/9.jpg' alt="">
+    <img src="../img/111.jpg" data-src='../img/10.jpg' alt="">
+    <img src="../img/111.jpg" data-src='../img/11.jpg' alt="">
+    <img src="../img/111.jpg" data-src='../img/12.jpg' alt="">
+    <img src="../img/111.jpg" data-src='../img/13.jpg' alt="">
+</div>
+</body>
+<script>
+    window.onload = () => {
+        let scrollTop = window.scrollY;
+        let imgs =Array.from(document.getElementsByTagName('img'));
+        // 实际想绑定在scroll 事件上的handler
+        // 需要访问到imgs, scroll
+        let lazyLoad = () => {
+            scrollTop = window.scrollY;
+            imgs.map((item) => {
+                if (scrollTop===0 && item.dataset.src !== '' && item.offsetTop < window.innerHeight + scrollTop) {
+                    item.setAttribute('src',item.dataset.src);
+                    item.setAttribute('data-src','')
+                }else if (item.dataset.src !== '' && item.offsetTop < window.innerHeight + scrollTop && item.offsetTop > scrollTop) {
+                    item.setAttribute('src',item.dataset.src);
+                    item.setAttribute('data-src','');
+                }
+            })
+        };
+
+        let throttle = (fun,delay,time) => {
+            let timeout;
+            let startTime = new Date();
+            return () => {
+                let context = this;
+                let args = arguments;
+                let curTime =new Date();
+                clearTimeout(timeout);
+            //    如果达到了规定的出发时间间隔，出发handler
+                console.log(curTime - startTime);
+                if (curTime - startTime >= time) {
+                    fun();
+                    startTime = curTime;
+                //    没达到出发间隔，重新设定定时器
+                } else {
+                    timeout = setTimeout(fun,delay)
+                }
+            }
+        };
+        lazyLoad();
+        window.addEventListener('scroll',throttle(lazyLoad,500,1000))
+
+    }
+</script>
+</html>

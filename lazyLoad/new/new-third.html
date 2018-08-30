@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        img {
+            display: block;
+            max-height: 300px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>懒加载页面</h1>
+    <img src="../img/111.jpg" data-src='../img/1.jpg' alt="">
+    <img src="../img/111.jpg" data-src='../img/2.jpg' alt="">
+    <img src="../img/111.jpg" data-src='../img/3.jpg' alt="">
+    <img src="../img/111.jpg" data-src='../img/4.jpg' alt="">
+    <img src="../img/111.jpg" data-src='../img/5.jpg' alt="">
+    <img src="../img/111.jpg" data-src='../img/6.jpg' alt="">
+    <img src="../img/111.jpg" data-src='../img/7.jpg' alt="">
+    <img src="../img/111.jpg" data-src='../img/8.jpg' alt="">
+    <img src="../img/111.jpg" data-src='../img/9.jpg' alt="">
+    <img src="../img/111.jpg" data-src='../img/10.jpg' alt="">
+    <img src="../img/111.jpg" data-src='../img/11.jpg' alt="">
+    <img src="../img/111.jpg" data-src='../img/12.jpg' alt="">
+    <img src="../img/111.jpg" data-src='../img/13.jpg' alt="">
+</div>
+</body>
+<script>
+    window.onload = () => {
+        let scrollTop = window.scrollY;
+        let imgs = Array.from(document.getElementsByTagName('img'));
+        let carRun = true;
+        let lazyLoad = () => {
+            imgs.map((item) => {
+                if (scrollTop ===0 && item.dataset.src !== '' && item.offsetTop < window.innerHeight + scrollTop) {
+                    alert();
+                    item.setAttribute('src',item.dataset.src);
+                    item.setAttribute('data-src','')
+                } else if (item.dataset.src !=='' && item.offsetTop < window.innerHeight + scrollTop && item.offsetTop > scrollTop) {
+                    item.setAttribute('src',item.dataset.src);
+                    item.setAttribute('data-src','')
+                }
+            })
+        };
+        lazyLoad();
+        // 定义函数节流函数
+        let throttle = (fun,delay) => {
+            return () => {
+                if (!carRun){
+                    return
+                }
+                console.log('!!!');
+                carRun = false;
+                setTimeout(() => {
+                    scrollTop = window.scrollY;
+                    fun(imgs);
+                    carRun = true
+                },delay)
+            }
+        };
+        window.addEventListener('scroll',throttle(lazyLoad,500))
+    }
+</script>
+</html>
