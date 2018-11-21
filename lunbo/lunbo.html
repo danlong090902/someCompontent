@@ -12,85 +12,94 @@
         overflow: hidden;
         font-size: 0;
     }
-    .parent{
+
+    .parent {
         width: 1800px;
         height: 200px;
         position: relative;
     }
+
     .parent img {
         width: 300px;
         height: 200px;
     }
+
     .empty {
-        position:relative;
-        top:-20px;
-        text-align:center;
+        position: relative;
+        top: -20px;
+        text-align: center;
     }
+
     .empty span {
-        display:inline-block;
-        position:relative;
-        z-index:10;
-        width:10px;
-        height:10px;
-        margin:0 5px;
-        border-radius:100%;
+        display: inline-block;
+        position: relative;
+        z-index: 10;
+        width: 10px;
+        height: 10px;
+        margin: 0 5px;
+        border-radius: 100%;
         background-color: blue;
     }
 </style>
 <body>
-    <div class="box">
-        <div class="parent" style="left: 0">
-            <img src="./img/1.jpg" alt="">
-            <img src="./img/2.jpg" alt="">
-            <img src="./img/3.jpg" alt="">
-            <img src="./img/4.jpg" alt="">
-            <img src="./img/1.jpg" alt="">
-        </div>
-        <div class="empty">
-            <span data-index="0"></span>
-            <span data-index="1"></span>
-            <span data-index="2"></span>
-            <span data-index="3"></span>
-        </div>
+<div class="box">
+    <div class="parent" style="left: 0">
+        <img src="./img/1.jpg" alt="">
+        <img src="./img/2.jpg" alt="">
+        <img src="./img/3.jpg" alt="">
+        <img src="./img/4.jpg" alt="">
+        <img src="./img/1.jpg" alt="">
     </div>
+    <div class="empty">
+        <span data-index="0"></span>
+        <span data-index="1"></span>
+        <span data-index="2"></span>
+        <span data-index="3"></span>
+    </div>
+</div>
 </body>
 <script>
     let parent = document.getElementsByClassName('parent')[0];
     let btnBox = document.getElementsByClassName('empty')[0];
     let btn = btnBox.children;
-    console.log(btn);
-    let move =() => {
-        if (parseInt(parent.style.left) > -1200){
-            parent.style.left = parseInt(parent.style.left) - 300 +'px';
-            console.log(parent.style.left);
+
+    let move = () => {
+        // 四张图片没有全部展示完
+        if (parseInt(parent.style.left) > -1200) {
+            // 每次向左移动一张图片的宽度
+            parent.style.left = parseInt(parent.style.left) - 300 + 'px';
+            // 动画 1S向左移动
             parent.style.transition = 'left 1s';
+            // 四张图片显示完成
             if (parseInt(parent.style.left) <= -1200) {
-                console.log( 't');
+                // 重置图片的父元素的位置
                 setTimeout(() => {
                     parent.style.left = 0 + 'px';
                     parent.style.transition = 'left 0s';
                     return parent.style
-                },1000)
+                }, 1000)
             }
-        }else {
+        } else {
+            // 重置图片父元素位置
             parent.style.left = 0 + 'px';
             parent.style.transition = 'left 0s'
         }
     };
-     setInterval(move,2000);
+    // 两秒图片更新一次
+    setInterval(move, 2000);
     let tog = (index) => {
         if (index > 3) {
             tog(0);
             return
         }
-        for (let i = 0 ; i < btn.length ; i++){
+        for (let i = 0; i < btn.length; i++) {
             btn[i].style.backgroundColor = '#eee'
         }
         btn[index].style.backgroundColor = 'rgb(215, 81, 15)'
     };
-    for (let i = 0 ; i < btn.length ; i++) {
+    for (let i = 0; i < btn.length; i++) {
         btn[i].onclick = () => {
-            parent.style.left = -300 * btn[i].getAttribute('data-index')+'px';
+            parent.style.left = -300 * btn[i].getAttribute('data-index') + 'px';
             parent.style.transition = 'left 1s';
             tog(btn[i].getAttribute('data-index'))
         }

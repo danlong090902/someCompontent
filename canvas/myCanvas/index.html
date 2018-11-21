@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>canvas匀速直线运动</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<canvas id="canvas">你的浏览器不支持canvas，请跟换其他浏览器试一试</canvas>
+<script type="text/javascript">
+    window.onload=function(){
+        var canvas=document.getElementById('canvas');
+        canvas.height=728;
+        canvas.width=1024;
+        var context=canvas.getContext('2d');
+        context.fillStyle='red';
+        context.beginPath();
+        context.arc(800,300,30,0,2*Math.PI,true);
+        context.closePath();
+        context.fill();
+        setInterval(function(){
+            run(context);
+        }, 1000);
+    };
+    var speed=0;
+    var startPoint=800;
+    function run(cxt){
+        speed=-7;
+        cxt.clearRect(0,0,1024,728);
+        //cxt.top+=speed;
+        startPoint+=speed;
+        cxt.beginPath();
+        cxt.arc(startPoint,300,30,0,2*Math.PI,true);
+        cxt.closePath();
+        cxt.fill();
+    }
+</script>
+</body>
+</html>

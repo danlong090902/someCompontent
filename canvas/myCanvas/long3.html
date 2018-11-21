@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="canvas">你的浏览器不支持canvas，请跟换其他浏览器试一试</canvas>
+</body>
+<script>
+    let a = 200,
+        b = 100,
+        radius = 30,
+        time = 0;//循环的次数
+    let canvas = document.getElementById('canvas');
+    window.onload = () => {
+        canvas.height = 668;
+        canvas.width = 1024;
+        let ctx = canvas.getContext('2d');
+
+        centerPoint(ctx);
+        arcRoute(ctx, 300, 300, a, b, radius);
+        setInterval(function () {
+            arcRoute(ctx, 300, 300, a, b, radius);
+        }, 70);
+    };
+    let centerPoint = (ctx) => {
+        ctx.beginPath();
+        ctx.arc(300, 300, 10, 0, 2 * Math.PI, true);
+        ctx.closePath();
+        ctx.fill();
+        ctx.fillStyle = '#654321';
+    };
+    //  绘制椭圆路线
+    let route = (context, x, y, a, b) => {
+        //  max是等于1除以长轴值a和b中的较大者
+        //  i每次循环增加1/max，表示度数的增加
+        //  这样可以使得每次循环所绘制的路径（弧线）接近1像素
+        let step = (a > b) ? 1 / a : 1 / b;
+        context.beginPath();
+        context.moveTo(x + a, y); // 从椭圆的左端点开始绘制
+        for (let i = 0; i < 2 * Math.PI; i += step) {
+            //  参数方程为x = a * cos(i), y = b * sin(i)，
+            //  参数为i，表示度数（弧度）
+            context.lineTo(x + a * Math.cos(i), y + b * Math.sin(i));
+        }
+        context.closePath();
+        context.stroke()
+    };
+
+    let arcRoute = (context, x, y, a, b, r) => {
+        context.clearRect(0, 0, 1024, 768);
+        route(context, x, x, a, b);
+        centerPoint(context);
+        if (time === 0) {
+            context.beginPath();
+            context.arc(x, y, r, 0, 2 * Math.PI, true);
+            context.closePath();
+            context.fill();
+            context.fillStyle = "#123456";
+        } else {
+            context.beginPath();
+            context.arc(x + a * Math.cos(time), y + b * Math.sin(time), r, 0, 2 * Math.PI, true);
+            context.closePath();
+            context.fill();
+            context.fillStyle = "#123456";
+        }
+        time += 1;
+    }
+</script>
+</html>

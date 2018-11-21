@@ -1,0 +1,22 @@
+
+<html>
+<head>
+    <title>打印</title>
+    <!-- 插入打印控件 -->
+    <OBJECT ID="jatoolsPrinter" CLASSID="CLSID:B43D3361-D075-4BE2-87FE-057188254255" codebase="jatoolsPrinter.cab#version=5,7,0,0"></OBJECT>
+    <script type="text/javascript">
+        function doPrint(){
+            var myDoc ={
+                documents: window.frames["printed"].document,   // 打印iframe中的页面
+                copyrights  :    '杰创软件拥有版权  www.jatools.com'
+            };
+            jatoolsPrinter.print(myDoc);
+        }
+    </script>
+</head>
+<body>
+<button onclick='doPrint()'>打印</button>
+<br>
+<iframe id="printed" name="printed" src="pages.htm" frameborder='no' border='0' width="100%" height="800"></iframe>
+</body>
+</html>

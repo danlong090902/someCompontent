@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">  
+<head>  
+    <title>自写一个简单点的网页软键盘</title>  
+    <meta charset="UTF-8">
+    <style>
+        * {
+            padding: 0;
+            margin: 0
+        }
+
+        body {
+            background: #fff;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        #keyboard {
+            width: 100%;
+            padding: 0;
+            margin: 0;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 2px 0;
+            text-align: center;
+        }
+
+        td {
+            cursor: pointer;
+            width: 12px;
+            height: 15px;
+            background-color: #7FCFF7;
+            position: relative;
+            overflow: hidden;
+        }
+
+        td:after {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background-image: radial-gradient(circle, #666 10%, transparent 10.01%);
+            background-repeat: no-repeat;
+            background-position: 50%;
+            transform: scale(10, 10);
+            opacity: 0;
+            transition: transform .3s, opacity .5s;
+        }
+
+        td:active:after {
+            transform: scale(0, 0);
+            opacity: .3;
+            transition: 0s;
+        }
+
+        div {
+            border: 1px solid #999;
+            float: left;
+            padding: 1px;
+            display: none;
+        }
+
+        .num {
+            /*color: blue;*/
+        }
+
+        .con {
+            display: block;
+            position: absolute;
+            width: 50%;
+            top: 0;
+            left: 25%;
+        }
+
+        body {
+            position: relative;
+        }
+    </style>
+         
+</head>
+  
+<body>
+<div class="con">
+    <br>
+    <br>
+    <br>
+    <br>
+      <input id="input" readonly="readonly" />
+      <br>
+      <br>
+      <br>
+      <br>
+    <input type="button" value="打开/关闭 键盘" onclick="ctrKeyboard()"/>
+     
+    <br>  
+    <div id="keyboard">   
+        <table cellspacing="1" width="480" onclick="test()">   
+            <tr>    
+                <th colspan="16">键盘模拟输入密码器
+                </th>
+            </tr>
+            <tr>    
+                <th colspan="16">展示密码
+                </th>
+            </tr>
+            <tr>
+                <th colspan="16">
+                    清空输入框
+                </th>
+            </tr>
+            <tr>    
+                <td>~</td>
+                <td>!</td>
+                <td>@</td>
+                <td>#</td>
+                <td>$</td>
+                <td>%</td>
+                <td>^</td>
+                <td>&</td>
+                <td>*</td>
+                <td>(</td>
+                <td>)</td>
+                <td>_</td>
+                <td>+</td>
+                <td>|</td>
+                <td rowspan="2" width="120">退格
+                </td>
+                <td rowspan="2" onclick="showNum()">数字</td>
+            </tr>
+            <tr>    
+                <td>`</td>
+                <td class="num">1
+                </td>
+                <td class="num">2
+                </td>
+                <td class="num">3
+                </td>
+                <td class="num">4
+                </td>
+                <td class="num">5
+                </td>
+                    
+                <td class="num">6
+                </td>
+                    
+                <td class="num">7
+                </td>
+                    
+                <td class="num">8
+                </td>
+                    
+                <td class="num">9
+                </td>
+                    
+                <td class="num">0
+                </td>
+                <td>-</td>
+                <td>=</td>
+                <td>\</td>
+            </tr>
+            <tr>    
+                <td>q</td>
+                <td>w</td>
+                <td>e</td>
+                <td>r</td>
+                <td>t</td>
+                <td>y</td>
+                <td>u</td>
+                <td>i</td>
+                <td>o</td>
+                <td>p</td>
+                <td>{</td>
+                <td>}</td>
+                <td>[</td>
+                <td>]</td>
+                <td colspan="2">切换大/小写
+                </td>
+            </tr>
+            <tr>    
+                <td>a</td>
+                <td>s</td>
+                <td>d</td>
+                <td>f</td>
+                <td>g</td>
+                <td>h</td>
+                <td>j</td>
+                <td>k</td>
+                <td>l</td>
+                <td>:</td>
+                <td>"</td>
+                <td>;</td>
+                <td>'</td>
+                <td colspan="3" rowspan="3">ENTER
+                </td>
+            </tr>
+            <tr>    
+                <td>z</td>
+                <td>x</td>
+                <td>c</td>
+                <td>v</td>
+                <td>b</td>
+                <td>n</td>
+                <td>m</td>
+                <td><</td>
+                <td>></td>
+                <td>?</td>
+                <td>,</td>
+                <td>.</td>
+                <td>/</td>
+            </tr>
+        </table>
+    </div>
+    <div id="numBoard">
+        <table cellpadding="1" width="480" onclick="test()">
+            <tr>
+                <td>.</td>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>退格</td>
+            </tr>
+            <tr>
+                <td>/</td>
+                <td>4</td>
+                <td>5</td>
+                <td>6</td>
+                <td>*</td>
+            </tr>
+            <tr>
+                <td>+</td>
+                <td>7</td>
+                <td>8</td>
+                <td>9</td>
+                <td>#</td>
+            </tr>
+            <tr>
+                <td>符号</td>
+                <td onclick="showKeyBoard()">返回</td>
+                <td>0</td>
+                <td>空格</td>
+                <td>ENTER</td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+<script>
+    let htmlCode = {"&": "&", '"': "\"", "<": "<", ">": ">",};
+    let numBoard = document.getElementById('numBoard');
+    numBoard.style.display = 'none';
+
+    let test = () => {
+        let input = document.getElementById("input");
+        let e = window.event || test.caller.arguments[0];
+        let el = e.target || e.srcElement;
+        if (el.innerHTML.trim() === '数字') {
+            el.textContent = ''
+        }
+        if (el.innerHTML.trim() === '清空输入框') {
+            input.value = ''
+        }
+        if (el.innerHTML.trim() === '键盘模拟输入密码器') {
+            input.type = 'password'
+        }
+        if (el.innerHTML.trim() === '展示密码') {
+            input.type = 'text'
+        }
+        if (el.tagName.toLowerCase() === "td" && el.rowSpan <= 1 && el.colSpan <= 1) {
+            let str = el.textContent;
+            str = htmlCode[str] || str;
+            str = str.trim();
+            input.value += str;
+        }
+        if (el.innerHTML.trim() === "退格") {
+            input.value = input.value.slice(0, -1);
+        }
+        if (el.innerHTML.trim() === "切换大/小写") {
+            let els = document.getElementsByTagName("td");
+            for (let i = 0, l = els.length; i < l; i++) {
+                let str = els[i].innerHTML;
+                if (/^[a-z]$/.test(str)) els[i].innerHTML = str.toUpperCase();
+                if (/^[A-Z]$/.test(str)) els[i].innerHTML = str.toLowerCase();
+            }
+        }
+        if (el.innerHTML.trim() === "ENTER") {
+            ctrKeyboard();
+        }
+    };
+
+    let ctrKeyboard = () => {
+        let el = document.getElementById("keyboard");
+        let numEl = document.getElementById('numBoard');
+        if (el.offsetWidth > 0 || numEl.offsetWidth > 0) {
+            el.style.display = "none";
+            numEl.style.display = 'none';
+        } else {
+            el.style.display = "block";
+            sortNum();
+            capsInit();
+        }
+        input.value = ''
+    };
+
+    let capsInit = () => {
+        let els = document.getElementsByTagName("td");
+        for (let i = 0, j = 0, l = els.length; i < l; i++) {
+            let str = els[i].innerHTML;
+            if (/^[A-Z]$/.test(str)) els[i].innerHTML = str.toLowerCase();
+        }
+    };
+
+    let sortNum = () => {
+        let arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].sort( () => {
+            return Math.random() > 0.5 ? 1 : -1;
+        });
+        let els = document.getElementsByTagName("td");
+        for (let i = 0, j = 0, l = els.length; i < l; i++) {
+            let str = els[i].innerHTML;
+            if (/^\d$/.test(str)) els[i].innerHTML = arr[j++];
+        }
+    }
+
+    let showNum = () => {
+        let keyBoard = document.getElementById('keyboard');
+        keyBoard.style.display = 'none';
+        let numBoard = document.getElementById('numBoard');
+        numBoard.style.display = 'block';
+    };
+
+    let showKeyBoard = () => {
+        let keyBoard = document.getElementById('keyboard');
+        keyBoard.style.display = 'block';
+        let numBoard = document.getElementById('numBoard');
+        numBoard.style.display = 'none';
+    }
+</script>
+
+</html>

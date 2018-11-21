@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="box">
+    <canvas width="310" height="155" id="canvas" ondrop="drop(event)"
+            ondragover="allowDrop(event)"
+    ></canvas>
+    <canvas width="310" height="155" id="block" ondragstart="drag(event)"></canvas>
+</div>
+</body>
+<script>
+    let box = document.getElementById('box');
+    // 画布
+    let canvas = document.getElementById('canvas');
+    // 滑块
+
+    let block = document.getElementById('block');
+    // 返回一个用于在画布上绘图的环境
+    let canvas_ctx = canvas.getContext('2d');
+    let block_ctx = block.getContext('2d');
+    // 创建图片
+    let img = document.createElement('img');
+    let x = 150, y = 50, w = 42, r = 10, PI = Math.PI;
+    // 当图片加载完成调用的事件
+    img.onload = () => {
+        //  drawImage方法在画布上绘制图像、画布或视频(元素，定位)
+        canvas_ctx.drawImage(img, 0, 0, 310, 155);
+        block_ctx.drawImage(img, 0, 0, 310, 155);
+
+        let blockWith = w + r * 2;
+        let _y = y - r * 2 + 2;
+        // getImageData() 方法返回 ImageData 对象，该对象拷贝了画布指定矩形的像素数据。(位置，宽高)
+        let ImageData = block_ctx.getImageData(x, _y, blockWith, blockWith);
+        block.width = blockWith;
+        block_ctx.putImageData(ImageData, 0, _y)
+    };
+    img.src = 'img.png';
+    // 画出矩形
+
+    let draw = (ctx, operation) => {
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(x + w / 2, y);
+        ctx.arc(x + w / 2, y - r + 2, r, 0, 2 * PI);
+        ctx.lineTo(x + w / 2, y);
+        ctx.lineTo(x + w, y);
+        ctx.lineTo(x + w, y + w / 2);
+        ctx.arc(x + w + r - 2, y + w / 2, r, 0, 2 * PI);
+        ctx.lineTo(x + w, y + w / 2);
+        ctx.lineTo(x + w, y + w);
+        ctx.lineTo(x, y + w);
+        // clip方法设置一个画布的剪切路径
+        // ctx.clip();
+        ctx.fillStyle = '#fff';
+        ctx[operation]();
+
+        // 在正方形上面遮盖出一个缺口；
+        ctx.beginPath();
+        ctx.arc(x, y + w / 2, r, 1.5 * PI, 0.5 * PI);
+        // globalCompositeOperation 属性设置或返回如何将一个源（新的）图像绘制到目标（已有）的图像上。
+        // xor使用异或操作对源图像与目标图像进行组合。
+        ctx.globalCompositeOperation = 'xor';
+        ctx.fill();
+    };
+    draw(canvas_ctx, 'fill');
+    draw(block_ctx, 'clip');
+    box.style.position = 'relative';
+    canvas.style.position = 'absolute';
+    block.style.position = 'absolute';
+    canvas.style.top = '0';
+    block.style.top = '0';
+    canvas.style.left = '0';
+    block.style.left = '60px';
+
+
+    let allowDrop = ev => {
+        ev.preventDefault();
+    };
+    let drag = ev => {
+        ev.dataTransfer.setData('text',ev.target.id)
+    };
+    let drop = ev => {
+        ev.preventDefault();
+        let data = ev.dataTransfer.getData('text');
+        ev.target.appendChild(document.getElementById(data))
+    };
+
+
+    block.draggable = true;
+
+
+</script>
+</html>

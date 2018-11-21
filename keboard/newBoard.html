@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0
+    }
+    body {
+        background: #fff;
+    }
+    table {
+        width: 100%;
+    }
+    #keyboard {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+    th, td {
+        border: 1px solid #ccc;
+        padding: 2px 0;
+        text-align: center;
+    }
+
+    td {
+        cursor: pointer;
+        width: 12px;
+        height: 15px;
+        background-color: #7FCFF7;
+        position: relative;
+        overflow: hidden;
+    }
+    td:after {
+        content: "";
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        background-image: radial-gradient(circle, #666 10%, transparent 10.01%);
+        background-repeat: no-repeat;
+        background-position: 50%;
+        transform: scale(10, 10);
+        opacity: 0;
+        transition: transform .3s, opacity .5s;
+    }
+    td:active:after {
+        transform: scale(0, 0);
+        opacity: .3;
+        transition: 0s;
+    }
+    div {
+        border: 1px solid #999;
+        float: left;
+        padding: 1px;
+        display: none;
+    }
+
+    .num {
+        /*color: blue;*/
+    }
+    #root {
+        display: block;
+        position: absolute;
+        width: 50%;
+        top: 0;
+        left: 25%;
+    }
+    body {
+        position: relative;
+    }
+</style>
+<body>
+<div>
+    <input id="input" type="text" readonly="readonly">
+</div>
+<div id="root">
+
+</div>
+</body>
+<script>
+    let root = document.getElementById('root');
+    let table = document.createElement('table');
+    let tr = document.createElement('tr');
+    let td = document.createElement('td');
+    table.cellPadding =1;
+    table.width = 480;
+    let test = () => {
+        let e = window.event || test.caller.arguments[0];
+        let input = document.getElementById('input');
+        let el =e.target || e.srcElement;
+
+        console.log(el)
+    }
+    table.onclick = test();
+</script>
+</html>

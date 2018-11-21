@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    const arr1 = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+    let ret1 = arr1.find((value, index, arr) => {
+        return value > 4
+    })
+    let ret2 = arr1.find((value, index, arr) => {
+        return value > 14
+    })
+    console.log('ret1', ret1);
+    console.log('ret2', ret2);
+    let ret3 = arr1.findIndex((value, index, arr) => {
+        return value > 4
+    })
+    let ret4 = arr1.findIndex((value, index, arr) => {
+        return value > 14
+    })
+    console.log('ret3', ret3);
+    console.log('ret4', ret4);
+</script>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="canvas">你的浏览器不支持canvas，请跟换其他浏览器试一试</canvas>
+</body>
+<script>
+    let canvas = document.getElementById('canvas');
+    window.onload = () => {
+        canvas.width = 1024;
+        canvas.height = 728;
+        let context = canvas.getContext('2d');
+        setInterval(() => {
+            run(context);
+        }, 50)
+    };
+    let time = 0;//定义运动的执行次数
+    // 旋转默认以0，0点进行旋转  因此在视图更新的时候需要将视图从0,0,点重绘到500,400点，因此在平移之前需要将0,0用save()保存以便在重绘后下次执行方法的时候
+    // 通过restore()将视图重置到0,0点
+    let run = (ctx) => {
+        ctx.clearRect(0, 0, 1024, 728);
+        drawNotChange(ctx);
+        ctx.save();//将当前以左上角坐标为(0,0)的上下文环境进行保存，这样是为了在接下来中要进行画布偏移后，可以进行还原当前的环境
+        ctx.translate(500,400);
+        ctx.rotate(time * 8 * Math.PI / 180);//设定每次旋转的度数
+        ctx.fillStyle = "#f1e3a2";
+        ctx.beginPath();
+        ctx.arc(0, 150, 30, 0, 2 * Math.PI, true);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();//将当前为(500,400)的点还原为（0,0）,其实在save中就是将上下文环境保存到栈中，在restore下面对其进行还原
+        time += 1
+    };
+    let drawNotChange = (ctx) => {
+        ctx.fillStyle = '#ff0000';
+        ctx.beginPath();
+        ctx.arc(500, 400, 30, 0, 2 * Math.PI, true);
+        ctx.closePath();
+        ctx.fill();
+        ctx.fillStyle = '#ff0000';
+        ctx.beginPath();
+        ctx.arc(500, 400, 150, 0, 2 * Math.PI, true);
+        ctx.closePath();
+        ctx.stroke();
+    }
+</script>
+</html>

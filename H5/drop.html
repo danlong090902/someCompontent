@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script type="text/javascript">
+    //  元素要能被拖动 首先把draggable 属性设置为true;
+    //  ondragstart = fn当元素被拖动时发生了什么；dataTransfer.setData()设置被拖动数据的数据类型和值
+    //  ondragover = fn 规定在何处放置被拖动的数据；默认无法将数据/元素放入其他元素中；如果需要设置允许放置；必须对元素默认方式进行处理
+    //  通过调用ondragover事件的event.preventDefault
+    //  当放置被拖动数据时，会发生drop事件
+    //  drop事件的默认行为是以链接的形式打开的
+    let start = (ev) => {
+        ev.dataTransfer.setData('text',ev.target.id)
+    };
+    let over = (ev) => {
+        ev.preventDefault();
+    };
+    let drop = (ev) => {
+        ev.preventDefault();
+        let data = ev.dataTransfer.getData('text');
+        let dropDom = document.getElementById(data);
+        ev.target.appendChild(dropDom);
+        console.log(dropDom);
+        dropDom.style.position = 'absolute';
+        dropDom.style.left = drag.screenX;
+        dropDom.style.top = drag.screenY;
+    }
+</script>
+<style>
+ #index {
+     width: 600px;
+     height: 400px;
+     border: 1px solid #92c85c;
+     position: relative;
+ }
+    #new {
+        width: 300px;
+        height: 200px;
+        background: #7FCFF7;
+    }
+</style>
+<body>
+<div id="index" ondragover="over(event)" ondrop="drop(event)">
+
+</div>
+<div id="new" draggable="true" ondragstart="start(event)">
+
+</div>
+<div id="title" draggable="true" ondragstart="start(event)">
+    测试拖拽
+</div>
+</body>
+</html>

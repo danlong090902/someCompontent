@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<body>
+
+<!--<audio src="http://tsn.baidu.com/text2audio?lan=zh&ctp=1&cuid=abcdxxx&tok=24.375c193ce477a6df645593de7cb854c0.2592000.1539222161.282335-11799022&tex=萌萌哒的小帅虎&vol=9&per=0&spd=5&pit=5&aue=3" controls="controls">-->
+    <!--Your browser does not support the audio element.-->
+<!--</audio>-->
+<div id="root" style="height: 100px">
+
+</div>
+</body>
+<script>
+    // 跟刚才一样从后台获取token   然后把下面tok换掉    txt  是你要说的话  然后下边就这样写
+  let audio = document.createElement('audio');
+  audio.setAttribute('src',"http://tsn.baidu.com/text2audio?lan=zh&ctp=1&cuid=abcdxxx&tok=24.375c193ce477a6df645593de7cb854c0.2592000.1539222161.282335-11799022&tex=萌萌哒的小帅虎&vol=9&per=0&spd=5&pit=5&aue=3")
+  audio.setAttribute('controls','controls')
+  audio.setAttribute('autoplay','autoplay')
+  let root = document.getElementById('root');
+  root.append(audio)
+
+
+</script>
+</html>
+

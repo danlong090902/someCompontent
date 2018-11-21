@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div >
+<canvas id="can">
+
+</canvas><canvas id="can1" >
+
+</canvas>
+</div>
+</body>
+<script>
+    let getLine = () => {
+        // 获取canvas元素
+        let c = document.getElementById('can');
+        // 调用canvas的getContext方法，调用canvas的getContext方法对象是内建的 HTML5 对象，拥有多种绘制路径、矩形、圆形、字符以及添加图像的方法。
+        let ctx = c.getContext('2d');
+        // 绘制线条
+        ctx.moveTo(10,10);
+        ctx.lineTo(150,50);
+        ctx.lineTo(50,50);
+        ctx.stroke();
+    };
+    let getcircle = () => {
+        var c=document.getElementById("can1");
+        var cxt=c.getContext("2d");
+        cxt.fillStyle="#FFf000";
+        cxt.beginPath();
+        cxt.arc(100,50,50,0,Math.PI*2,true);
+        cxt.closePath();
+        cxt.fill();
+
+    }
+    getLine()
+    getcircle()
+</script>
+</html>

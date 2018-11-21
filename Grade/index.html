@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    div {
+        position:relative;
+        font-size: 50px;
+        text-align: center;
+        width: 100%;
+    }
+    div:after{
+        content:'★★★★★';
+        position:absolute;
+        text-align: center;
+        width: 100%;
+        top:0;
+        left:0;
+        overflow: hidden;
+        transition: width 2s;
+        -moz-transition: width 2s;
+        -webkit-transition: width 2s;
+        -o-transition: width 2s;
+
+    }
+    .test:hover:after{
+        width:3.5em;
+    }
+
+</style>
+<body>
+<div id="rate">
+    ☆☆☆☆☆
+</div>
+</body>
+<script>
+    let rate = document.getElementById('rate');
+    // rate.
+</script>
+</html>
