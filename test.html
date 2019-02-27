@@ -7,134 +7,31 @@
     <title>Document</title>
 </head>
 <body>
-<button id="myBtn">call me baby</button>
-<button id="box">call me baby</button>
-<div id="wrap">
-    <div id="content">112332</div>
-</div>
-<select onchange="window.open(options[selectedIndex].value, '_self')">
-    <option value="http://www.bj-hmk.com/">中文</option>
-    <option value="http://en.bj-hmk.com/">English</option>
-</select>
-<div>
-</div>
+<div >1111hahah</div>
 </body>
 <script>
-    // call与apply  都是用来改变this指向的方法，第一个参数传入要指向的对象,call的后续依次传入所要进行处理的参数,而apply后续传入一个数组，数组中为要处理的数据
-    // var a = 10;
-    // function sum(num1, num2) {
-    //     console.log(this.a+num1+num2)
-    // }
-    // var obj ={
-    //     a: 20
-    // };
-    // sum(10,10);
-    // sum.call(obj,10,10);
-    // sum.apply(window,[10,10]);
+    console.log(Array,Array.prototype)
+     const getUrlParam = (name) => {
+        const reg = new RegExp(`(^|&)${name}=([^&]*)(&|$)`);
+        const r = window.location.search.substr(1).match(reg);
+        if (r !== null) return r[2];
+        return null;
+    };
+    let parmas =  getUrlParam('haha')
+    console.log(parmas );
 
+    let obj = {};
+    let aaa= '123';
+    obj[aaa] ={'123':"456"};
+    console.log(obj)
 
-    //为dom元素绑定事件作用域是所属元素
-    // var btn=document.getElementById("myBtn");
-    // btn.addEventListener("click",function(){
-    //     alert('call me lady');
-    // },false);
-    //
-    // btn.addEventListener("click",function(){
-    //     alert('call me crazy');
-    // },false);
-    //适用于ie，绑定on系列事件作用域是全局作用域
-    // btn.attachEvent("onclick",function(){
-    //     alert(1);
-    // });
-    // btn.attachEvent("onclick",function(){
-    //     alert(2);
-    // });
+     const  arr=[[1,2,3],[4,5,6],[7,8,9],[10,11,12]]
 
-    // 移除绑定事件
-    //     移除 addEventListener 事件：
-    //     element.removeEventListene(event, function, useCapture)
-    //     event: 事件名，注意不使用“on”前缀，如 click
-    //     function: 指定事件触发时执行的函数
-    //     useCapture: 指定事件是否在捕获或冒泡阶段执行
-    //     true: 在捕获阶段执行
-    //     false: 在冒泡阶段进行，默认值为false
-    //     如果添加时用的捕获阶段，那么在移除时也要用捕获阶段，否则无法移除它们
-    //     如果是同一个元素同一个调用函数同一个useCapture值绑定多次，在移除时只需要执行一次移除
-
-
-    //     移除 attachEvent 事件：
-    //     element.detachEvent(event, function)
-    //     event: 事件名，注意要使用“on”前缀，如 onclick
-    //     function: 指定事件触发时执行的函数
-
-    // addEventListener 和 on 区别
-
-    //      on只执行最后一个 相当于覆盖
-    //     window.onload = function () {
-    //          var box = document.getElementById('box');
-    //          box.onclick = function () {
-    //              alert('111')
-    //          }
-    //          box.onclick = function () {
-    //              alert('222')
-    //          }
-    //      };
-    // addEventListener所有的都依次执行
-    // window.onload = function () {
-    //     var box = document.getElementById('box');
-    //     box.addEventListener('click', function () {
-    //         alert('111')
-    //     });
-    //     box.addEventListener('click', function () {
-    //         alert('222')
-    //     })
-    // }
-
-
-    // (addEventListener第三个参数写的是false， 默认为false)
-    // 时间冒泡
-    window.onload = function(){
-        var wrap= document.getElementById("wrap");
-        var content= document.getElementById("content");
-        wrap.addEventListener("click", function(){
-
-            console.log("我是wrap");
-        }, false);
-        content.addEventListener("click", function(){
-            event.stopPropagation()
-
-            console.log("我是content");
-        })
-    }
-    // 运行结果：我是content
-    // 我是wrap
-
-    // (addEventListener第三个参数写的是true， 默认为false)
-    // 事件捕获
-    // window.onload = function(){
-    //     var wrap= document.getElementById("wrap");
-    //     var content= document.getElementById("content");
-    //     wrap.addEventListener("click", function(){
-    //         console.log("我是wrap");
-    //     }, true)
-    //     content.addEventListener("click", function(){
-    //         console.log("我是content");
-    //     })
-    // }
-    // 运行结果：我是wrap
-    // 我是content
-
-    // 返回顶部
-    // window.onscroll = function () {
-    //     if (document.body.scrollTop || document.documentElement.scrollTop > 0) {
-    //         document.getElementById('back_top').style.display = "block";
-    //     } else {
-    //         document.getElementById('back_top').style.display = "none";
-    //     }
-    // }
-    // $('.back_top').click(function () {
-    //     $("html,body").animate({ scrollTop: 0 }, 500);
-    //     return false;
-    // });
+     console.log(Array.prototype.concat.apply(Array,arr))
+     console.log(Array.prototype.concat.apply([],arr))
+     console.log([].concat.apply([],arr))
+      let aaccca = '2019-12-11 09:12:13';
+      let bbb = aaccca.replace(/-/g,'/');
+    console.log(bbb)
 </script>
 </html>

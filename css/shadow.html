@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="root">
+    <div class="boot">
+
+    </div>
+    <div class="shadow">
+
+    </div>
+</div>
+</body>
+<style>
+    .root {
+        width: 100px;
+        height: 80px;
+        background-color: red;
+        position: relative;
+    }
+    .boot {
+        width: 100px;
+        height: 80px;
+    }
+    .shadow {
+        position: absolute;
+        left: 50px;
+        top: 40px;
+        width: 0;
+        height: 0;
+        opacity: 0.5;
+        background-color: #fff;
+        transform: rotate(0);
+        transition: left 1s ,width 1s,height 1s,top 1s,transform 1s;
+    }
+    .root:hover .shadow{
+        left: 0;
+        top: 0;
+        width: 100px;
+        height: 80px;
+        transform: rotate(360deg);
+    }
+</style>
+</html>

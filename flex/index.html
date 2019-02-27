@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    .content {
+        display: flex;
+        /*在父容器上设置的唯一属性，并且其所有直接子元素将自动成为 flex item（flex项）*/
+        flex-direction: row;
+        /*所有 flex item（flex项） 从左到右排成一行*/
+
+        /*flex-direction: column;*/
+        /*所有 flex item（flex项） 从上到下排成一行*/
+
+        /*flex-direction: row-reverse;*/
+        /*所有 flex item（flex项） 从右到左排成一行
+
+        /*flex-direction: column-reverse;*/
+        /*所有 flex item（flex项） 从下到上排成一行*/
+
+        flex-wrap: nowrap;
+        /*flex item（flex项） 会显示成一行，默认情况下，它们会自动伸缩，以适应 flex container（flex容器）的宽度*/
+
+        /*flex-wrap: wrap;*/
+        /*flex item（flex项）会在flex container（flex容器）中， 按照从左到右，从上到下的顺序显示成多行。*/
+
+        /*flex-wrap: wrap-reverse;*/
+        /*flex item（flex项）会在flex container（flex容器）中， 按照从左到右，从下到上的顺序显示成多行。*/
+
+        /*flex-flow*/
+        /*这个属性是设置flex-direction和flex-wrap属性的速记写法*/
+
+        /*justify-content: center;*/
+        /*justify-content属性用来指定 flex item（flex项）在当前 flex container（flex容器）主轴线（main axis）上的对齐方式。
+        当所有flex item（flex项）都在同一行并且不可伸缩，或是可伸缩但已经达到它们最大尺寸的时候，
+        它可以分配主轴线（main axis）上的剩余空间。*/
+
+        /*align-items*/
+        /*flex item（flex项）可以在 flex container（flex容器）的当前交叉轴（cross axis）上对齐方式，类似于justify-content，但是在垂直方向。*/
+        /*此属性设置所有flex item（flex项）的默认对齐方式，并且包括匿名元素。*/
+
+        /*align-content*/
+        /*当flex container（flex容器）的交叉轴（cross axis）上存在多余空间（未被填充满）时，
+        align-content 属性可以控制 flex item（flex项）在 flex container（flex容器）的交叉轴（cross axis）上的对齐方式。
+        类似于justify-content在主轴（main axis）方向上各个 flex item（flex项）的对齐。*/
+    }
+    .child {
+        width: 50%;
+        /*flex item（flex项）的属性*/
+        /*order*/
+        /*order属性用来控制 flex container（flex容器）中 flex item（flex项）的排列顺序。
+        默认情况下，以它们被添加到 flex container（flex容器）中的顺序排序（可以理解为以HTML结构的顺序排序）。*/
+        /*flex-grow*/
+        /*当 flex container（flex容器）存在剩余空间时，可以用flex-grow这个属性来确定 flex item（flex项）的拉伸比例。*/
+        /*flex-shrink*/
+        /*当 flex container（flex容器）空间不足时，可以用flex-shrink这个属性来确定 flex item（flex项）的收缩比例。*/
+        /*flex-basis*/
+        /*这个属性看作width和height属性相同的值，并在 flex 伸缩比例分配剩余空间之前，
+        指定 flex item（flex项）的初始主要大小（flex-grow 和 flex-shrink 伸缩比例分配剩余空间之前）。*/
+        /*flex*/
+        /*这个属性是flex-grow，flex-shrink和flex-basis属性的速记写法（简写或缩写）。
+        除了其他值，它也可以设置为auto(即：1 1 auto)和none(即：0 0 auto)。*/
+        /*align-self*/
+        /*这个align-self属性允许覆盖单个的 flex item（flex项）默认对齐方式（或由align-items指定的值）*/
+    }
+
+
+
+
+</style>
+<body>
+<div class="content">
+    <div class="child">
+        1
+    </div>
+    <div class="child">
+        2
+    </div>
+    <!--<div login={login}></div>-->
+</div>
+</body>
+<script>
+    console.log(typeof ('a'))
+</script>
+</html>

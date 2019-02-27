@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Insert title here</title>
+</head>
+<body>
+<style>
+.yy{font-family:"楷体";font-size:24px;color:#9932CC;}
+</style>
+<div class="yy">
+<font color="#DC143C" size="4">非法输入的两种报错处理：</font><br/>
+只能输入数字（非法输入将弹出提示对话框）<input type="text" name="txt1" onchange="if(/\D/.test(this.value)){alert('只能输入数字');this.value='';}" /><br/>
+<font color="#EE82EE" size="4">true:0|123|0123|... &nbsp;&nbsp; false:a|12c|1.|...</font><br/>
+只能输入数字（非法输入将直接替换为空）<input onkeyup="this.value=this.value.replace(/\D/g,'')" type="text" /><br/>
+<font color="#EE82EE" size="4">true:0|123|0123|... &nbsp;&nbsp; false:a|12c|1.|...</font><br/>
+<font color="#DC143C" size="4">后文中统一使用第二种（非法输入将直接替换为空）</font><br/><br/>
+1.只能输入数字 <input onkeyup="value=value.replace(/\D/g,'')" type="text" /><br/> <!-- OR value=value.replace(/[^\d]/g,'') -->
+<font color="#EE82EE" size="4">&nbsp;&nbsp;true:0|123|0123|...&nbsp;&nbsp;false:a|12c|1.|...</font><br/>
+2.只能输入数字和英文的 <input onkeyup="value=value.replace(/[\W]/g,'') " type="text" /><br/>
+<font color="#EE82EE" size="4">true:0|A|a|... &nbsp;&nbsp; false:-|a*|1.|...</font><br/>
+3.只能输入中文的 <input onkeyup="value=value.replace(/[^\u4E00-\u9FA5]/g,'')" type="text"/><br/> 
+<font color="#EE82EE" size="4">true:哈哈哈|... &nbsp;&nbsp; false:a|12c|1.|...</font><br/>
+4.只能输入大小写英文 <input onkeyup="value=value.replace(/[^\a-\z\A-\Z]/g,'')" type="text" /><br/>
+<font color="#EE82EE" size="4">true:abc|ABC|... &nbsp;&nbsp; false:a1|a.|...</font><br/>
+5.只能输入非负有理数 <input onkeyup="if(isNaN(value))execCommand('undo')" type="text" /><br/>
+<font color="#EE82EE" size="4">&nbsp;&nbsp;true:0.1|12|12.3|...&nbsp;&nbsp;false:.0|1.2.|a|...</font><br/>
+6.只能输入负有理数 <input onkeypress="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onkeyup="if(!this.value.match(/^[\+\-]?\d*?\.?\d*?$/))this.value=this.t_value;else this.t_value=this.value;if(this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?)?$/))this.o_value=this.value" onblur="if(!this.value.match(/^(?:[\+\-]?\d+(?:\.\d+)?|\.\d*?)?$/))this.value=this.o_value;else{if(this.value.match(/^\.\d+$/))this.value=0+this.value;if(this.value.match(/^\.$/))this.value=0;this.o_value=this.value}" type="text" /><br/>
+<font color="#EE82EE" size="4">&nbsp;&nbsp;true:+1.2|-1.2|0.12|...&nbsp;&nbsp;false:+-|0.1.|1+|...</font><br/>
+7.不能输入数字 <input onkeyup="value=value.replace(/[\d]/g,'') " type="text" /> <br />
+<font color="#EE82EE" size="4">&nbsp;&nbsp;true:abc|+-*/?!|哈哈哈|...&nbsp;&nbsp;false:012|...</font><br/>
+8.只能输入英文字母和数字 <input onkeyup="value=value.replace(/[^\w]/ig,'')" type="text" /><br/>
+<font color="#EE82EE" size="4">&nbsp;&nbsp;true:abc|ABC|123|...&nbsp;&nbsp;false:+-|哈哈哈|./\?!|...</font><br/>
+9.只能输入数字0 <input onkeyup="value=value.replace(/[^0]/g,'')" type="text" /> <br/>
+<font color="#EE82EE" size="4">&nbsp;&nbsp;true:0|00|000|...&nbsp;&nbsp;false:1|+|s|...</font><br/>
+10.除数字0以外均可输入 <input onkeyup="value=value.replace(/0/g,'')" type="text" /> <br/>
+<font color="#EE82EE" size="4">&nbsp;&nbsp;true:abc|+-|456|...&nbsp;&nbsp;false:0</font><br/>
+11.小数点后最多只能有两位数字（不能输入字母和运算符号） <input onkeypress="if((event.keyCode&lt;48 || event.keyCode&gt;57) &amp;&amp; event.keyCode!=46 || /\.\d\d$/.test(value))event.returnValue=false" type="text" /><br/>
+<font color="#EE82EE" size="4">&nbsp;&nbsp;true:123|0.12|.56|...&nbsp;&nbsp;false:0f|0.123|.f|...</font><br/>
+</div>
+</body>
+</html>

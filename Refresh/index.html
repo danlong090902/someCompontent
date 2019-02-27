@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>上拉加载数据测试</title>
+    <meta name="viewport" content="width=device-width">
+    <style>
+        .cont p {
+            height: 200px;
+            line-height: 200px;
+            font-size: 26px;
+            text-align: center;
+            width: 100%;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+<div class="cont">
+    <p>第1页</p>
+    <p>第2页</p>
+    <p>第3页</p>
+    <p>第4页</p>
+    <p>第5页</p>
+    <p>第6页</p>
+    <p>第7页</p>
+    <p>第8页</p>
+    <p>第9页</p>
+    <p>第10页</p>
+</div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+    loadData();
+
+    function loadData() {
+        let range = 50, maxpage = 15, page = 1, totalHeight = 0;
+        $(window).scroll( () =>{
+            let scrollHeight = $(window).scrollTop();//页面卷起的高度
+            totalHeight = parseFloat($(window).height()) + parseFloat(scrollHeight);//页面文档高度+页面卷起的高度页面卷起的高度
+            if (($(document).height() - range) <= totalHeight && page != maxpage) {
+                $('.cont').append('<p>增添条数' + page + '</p>');
+                page++;
+            }
+        })
+    }
+
+    /*实际项目中maxPage并不是前端进行写死的值，这里只是一个简单的demo，实际中前端实现上拉加载对于后台来说是分页功能实现。
+    * 因此实际中最大页码数应该是由后台进行返回的
+    * range是元素底部距离可视区高度差值，保证了用户在上拉加载的时候的体验度。
+    * */
+</script>
+</html>

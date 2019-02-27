@@ -8,10 +8,15 @@
 
 </body>
 <script>
-    console.log(123);
-    setTimeout(()=> {
-        console.log(2222)
-    },0);
-    console.log(456)
+   revertInt =(nb) => {
+        let str = nb +'';
+        str = str.split("").reverse().join("") ;
+        parseInt(str)
+        console.log(parseInt(str))
+        return
+   }
+    revertInt(123)
+   let arr = [1,2,3,41,3,52,4]
+    console.log([...new Set(arr)])
 </script>
 </html>

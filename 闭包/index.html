@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+</style>
+<body>
+<div>
+
+</div>
+</body>
+<script>
+    // let show = false;
+    // if (show){
+    //     show = !show
+    // } else {
+    //     show = !show
+    // }
+    // const getUrlParam = (name) => {
+    //     const reg = new RegExp(`(^|&)${name}=([^&]*)(&|$)`);
+    //     const r = window.location.search.substr(1).match(reg);
+    //     if (r !== null) return r[2];
+    //     return null;
+    // };
+    function getUrlParam(name) {
+        var reg = new RegExp(`(^|&)${name}=([^&]*)(&|$)`);
+        var r = window.location.search.substr(1).match(reg);
+        if (r !== null) return r[2];
+        return null;
+    }
+    console.log(getUrlParam('data'))
+</script>
+
+</html>
